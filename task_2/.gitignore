@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+# FontAwesome font files
+**/fa-*.woff
+**/fa-*.woff2
+**/fa-*.ttf
+**/fa-*.eot
+**/fa-*.svg

@@ -31,7 +31,7 @@ import WSTETH from '../data/assets/wstETH.svg';
 import YIELDUSD from '../data/assets/YieldUSD.svg';
 import ZIL from '../data/assets/ZIL.svg';
 
-const data = [
+const data:Token[] = [
   { currency: "BLUR", price: 0.208115254237288, icon: BLUR },
   { currency: "bNEO", price: 7.1282679, icon: BNEO },
   { currency: "BUSD", price: 0.999183113, icon: BUSD },
