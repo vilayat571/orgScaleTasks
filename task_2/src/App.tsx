@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import PortalModal from "../components/PortalModal";
-import HeroSection from "../components/HeroSection";
-import { english, malay } from "../data/language";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import PortalModal from "./components/PortalModal";
+import HeroSection from "./components/HeroSection";
+import { english, malay } from "./data/language";
 
 export default function App() {
   const [portal, setPortal] = useState(true);
