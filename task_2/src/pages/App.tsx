@@ -19,15 +19,15 @@ export default function App() {
   const texts = language === "English" ? english : malay;
 
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-radial from-[#2b1d0f] to-black text-white">
-      {portal && (
+    <div className="flex flex-col bg-gradient-radial from-[#2b1d0f] to-black text-white">
+    {portal && (
         <PortalModal
           currency={currency}
           setCurrency={setCurrency}
           texts={texts}
           closePortal={() => setPortal(false)}
         />
-      )}
+      )} 
 
       <Navbar language={language} setLanguage={setLanguage} />
 

@@ -1,5 +1,5 @@
 import { english, malay } from "../data/language";
-import { FaDiscord, FaTwitter, FaReddit } from "react-icons/fa"; // Using react-icons for social media
+import { FaDiscord, FaTwitter, FaReddit } from "react-icons/fa";
 
 interface FooterProps {
   language: string;
@@ -9,13 +9,14 @@ export default function Footer({ language }: FooterProps) {
   const texts = language === "English" ? english : malay;
 
   return (
-    <footer className="w-full bg-transparent text-white pb-12 px-6 flex justify-center absolute bottom-0">
-      {/* Centered container with same width as Navbar */}
-      <div className="w-4/5 flex flex-col md:flex-row justify-between items-center">
+    <footer className="w-full bg-transparent text-white px-4 sm:px-6 pb-12 flex xl:mt-20 lg:mt-0 md:mt-0 sm:mt-0 justify-center">
+      {/* Centered container */}
+      <div className="w-full max-w-6xl flex flex-col md:flex-row justify-between items-center md:items-start gap-6 md:gap-0">
+        
         {/* Left: Social Media */}
-        <div className="flex flex-col items-center md:items-start mb-4 md:mb-0">
+        <div className="flex flex-col items-center md:items-start text-center md:text-left">
           <span className="font-semibold">{texts.socialMedia || "Social Media"}</span>
-          <div className="flex gap-3 text-2xl mt-2">
+          <div className="flex gap-4 text-2xl mt-2">
             <a href="#" aria-label="Discord">
               <FaDiscord />
             </a>
@@ -29,15 +30,16 @@ export default function Footer({ language }: FooterProps) {
         </div>
 
         {/* Right: Info */}
-        <div className=" flex justify-end relative left-12 ">
-        <div className=" w-2/3">
-              <p className="font-semibold mb-1">{texts.footerTitle || "EcoSwap"}</p>    
-          <p className="text-sm text-gray-400">
-            {texts.footerDescription ||
-              "Effortlessly exchange items, reduce waste, and make eco-friendly choices."}
-          </p>
+        <div className="flex justify-center md:justify-end w-full md:w-2/3">
+          <div className="text-center xl:w-2/5 lg:w-2/5 md:w-full sm:w-full md:text-left">
+            <p className="font-semibold mb-1">{texts.footerTitle || "EcoSwap"}</p>
+            <p className="text-sm text-gray-400">
+              {texts.footerDescription ||
+                "Effortlessly exchange items, reduce waste, and make eco-friendly choices."}
+            </p>
+          </div>
         </div>
-        </div>
+
       </div>
     </footer>
   );
