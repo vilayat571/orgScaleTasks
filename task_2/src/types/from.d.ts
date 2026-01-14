@@ -7,7 +7,6 @@ type Texts = {
   connectWallet: string;
 };
 
-
  interface CurrencyInputProps {
   currency: string;
   setCurrency: (value: string) => void;

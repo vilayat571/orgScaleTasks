@@ -74,6 +74,7 @@ export default function SwapForm({ language }: SwapFormProps) {
         <ToInput
           currency={toCurrency}
           setCurrency={setToCurrency}
+          setInputValue={setInputCurrency}
           inputValue={outputCurrency}
           texts={texts}
           loading={loading}
