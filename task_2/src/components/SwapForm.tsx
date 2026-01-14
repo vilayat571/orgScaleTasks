@@ -1,21 +1,29 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import data from "../data/currencies";
 import "react-toastify/dist/ReactToastify.css";
+import { english, malay } from "../data/language.ts";
 
-export default function SwapForm() {
+interface SwapFormProps {
+  language: string;
+}
+
+export default function SwapForm({ language }: SwapFormProps) {
+  const texts = language === "English" ? english : malay;
+
   const [inputCurrency, setInputCurrency] = useState<number>(0);
-
-  //setFromCurrency(localStorage.getItem("currency") )
-
-  const [fromCurrency, setFromCurrency] = useState("USD");
+  const [fromCurrency, setFromCurrency] = useState(
+    localStorage.getItem("currency") || "USD"
+  );
   const [showCurrency, setShowCurrency] = useState(false);
   const [toCurrency, setToCurrency] = useState<string>("BLUR");
   const [loading, setLoading] = useState(false);
-
   const [outputCurrency, setOutputCurrency] = useState<number | false>(0);
 
+  useEffect(() => {
+    localStorage.setItem("currency", fromCurrency);
+  }, [fromCurrency]);
+
   const convertPrice = () => {
-    // Only runs if validations passed
     setLoading(true);
 
     const fromCurrencyPrice = data.find(
@@ -39,18 +47,13 @@ export default function SwapForm() {
 
   const changeCurrency = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setShowCurrency(true);
-    if (showCurrency == true) {
-      localStorage.clear();
-      setFromCurrency(e.target.value);
-    } else {
-      setFromCurrency(e.target.value);
-    }
+    setFromCurrency(e.target.value);
   };
 
   return (
     <div className="w-full flex items-center justify-center relative top-16">
-      {/* Parent div-in position relative olması lazımdır */}
-      <div className="absolute w-1/3 h-75 p-6 rounded-xl bg-[#28190A] opacity-60 "></div>
+      {/* Background overlay */}
+      <div className="absolute w-1/3 h-75 p-6 rounded-xl bg-[#28190A] opacity-60"></div>
 
       <div className="relative w-1/3 p-6 rounded-xl bg-transparent z-10">
         {/* FROM INPUT */}
@@ -58,12 +61,8 @@ export default function SwapForm() {
           <div className="flex items-center gap-2">
             <div className="w-4 h-4 rounded-full bg-orange-500"></div>
             <select
-              value={
-                showCurrency
-                  ? fromCurrency
-                  : localStorage.getItem("currency") || ""
-              }
-              onChange={(e) => changeCurrency(e)}
+              value={showCurrency ? fromCurrency : localStorage.getItem("currency") || ""}
+              onChange={changeCurrency}
               className="bg-transparent text-white outline-none cursor-pointer"
             >
               {data.map((item) => (
@@ -74,29 +73,24 @@ export default function SwapForm() {
             </select>
           </div>
           <input
-            type="text"
+            type="number"
             value={inputCurrency}
             onChange={(e) => setInputCurrency(Number(e.target.value))}
             className="bg-transparent text-white w-16 text-right outline-none"
+            placeholder={texts.amount}
           />
         </div>
 
         {/* SWAP BUTTON */}
         <div className="flex justify-center mb-4">
           <button
-            onClick={() => convertPrice()}
-            disabled={
-              inputCurrency == 0 || fromCurrency == toCurrency ? true : false
-            }
+            onClick={convertPrice}
+            disabled={inputCurrency === 0 || fromCurrency === toCurrency}
             className={`w-12 h-12 rounded-full cursor-pointer 
-              ${inputCurrency == 0 || fromCurrency == toCurrency ? '' : 'bg-orange-500'}
-              text-2xl font-bold  flex items-center justify-center hover:bg-orange-600 transition`}
+              ${inputCurrency === 0 || fromCurrency === toCurrency ? "" : "bg-orange-500"}
+              text-2xl font-bold flex items-center justify-center hover:bg-orange-600 transition`}
           >
-            <span
-              className={`inline-block transition-transform ${
-                loading ? "animate-spin" : ""
-              }`}
-            >
+            <span className={`inline-block transition-transform ${loading ? "animate-spin" : ""}`}>
               ⮃
             </span>
           </button>
@@ -111,12 +105,9 @@ export default function SwapForm() {
               className="bg-transparent text-white outline-none cursor-pointer"
             >
               {data.map((item) => (
-                <div className="bg-red-500">
-                  <img src={item.icon} alt="icon image" />
-                  <option key={item.currency} value={item.currency}>
-                    {item.currency}
-                  </option>
-                </div>
+                <option key={item.currency} value={item.currency}>
+                  {item.currency}
+                </option>
               ))}
             </select>
           </div>
@@ -125,18 +116,16 @@ export default function SwapForm() {
             readOnly
             value={
               loading
-                ? "calculating..."
+                ? texts.calculating
                 : `~ ${Number(outputCurrency || 0).toFixed(2)}`
             }
-            className={`bg-transparent text-white 
-              "w-auto" 
-            text-right outline-none`}
+            className="bg-transparent text-white w-auto text-right outline-none"
           />
         </div>
 
         {/* CONNECT WALLET BUTTON */}
         <button className="w-full py-3 bg-orange-500 to-yellow-400 rounded-lg text-white font-semibold hover:from-orange-600 hover:to-yellow-500 transition">
-          Connect Wallet
+          {texts.connectWallet}
         </button>
       </div>
     </div>

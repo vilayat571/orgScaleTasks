@@ -1,20 +1,32 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import SwapForm from "../components/SwapForm";
 import data from "../data/currencies";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { motion } from "framer-motion";
+import { english, malay } from "../data/language.ts";
 
 export default function App() {
   const [portal, setPortal] = useState(true);
   const [currency, setCurrency] = useState("Currency");
+  const [language, setLanguage] = useState(() => localStorage.getItem("language") || "English");
 
-  localStorage.setItem("currency", currency);
+  // Sync to localStorage
+  useEffect(() => {
+    localStorage.setItem("language", language);
+  }, [language]);
+
+  useEffect(() => {
+    localStorage.setItem("currency", currency);
+  }, [currency]);
+
+  // Select texts based on language
+  const texts = language === "English" ? english : malay;
 
   const closePortal = () => {
-    if (currency == "Currency") {
-      toast("Please choose the currency", {
+    if (currency === texts.currency) {
+      toast(texts.chooseCurrencyError, {
         position: "top-right",
         autoClose: 1500,
         hideProgressBar: true,
@@ -47,22 +59,19 @@ export default function App() {
             theme="colored"
             style={{ zIndex: 9999 }}
           />
-          {/* Dark overlay */}
           <div className="absolute inset-0 bg-black/60"></div>
-
-          {/* Modal */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }} // start slightly left
-            animate={{ opacity: 1, x: 0 }} // move to original position
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="relative w-100 h-auto bg-white text-black rounded-lg p-6 z-10"
           >
             <form className="flex flex-col gap-4">
               <div className="flex w-full items-center justify-between">
                 <label className="font-semibold text-xl italic">
-                  Select default currency:
+                  {texts.currency}:
                 </label>
-              </div>{" "}
+              </div>
               <select
                 value={currency}
                 onChange={(e) => setCurrency(e.target.value)}
@@ -79,28 +88,33 @@ export default function App() {
                 className="bg-black hover:bg-green-700 rounded-sm transition cursor-pointer text-white px-2 py-4 inline"
                 onClick={closePortal}
               >
-                Choose & close
+                {texts.select}
               </button>
             </form>
           </motion.div>
         </div>
       )}
 
-      <Navbar />
-      <div className="flex flex-col text-center relative top-56">
-        <h1 className="text-7xl text-center">
-          Swap, Stake, and Earn
-          <br />
-          All in One Place
-        </h1>
-        <p className="relative top-5 italic">
-          Take full control of your crypto journey with our all-in-one DeFi
-          platform. Instantly swap tokens with low fees, <br /> stake your
-          assets to earn passive income.
-        </p>
+      <Navbar language={language} setLanguage={setLanguage} />
 
-        <SwapForm />
-      </div>
+   <div className="flex flex-col items-center justify-center text-center w-full relative top-56 gap-6">
+  <h1 className="text-7xl">
+    {texts.swap}, {texts.stake}, and {texts.earn}
+    <br />
+    All in One Place
+  </h1>
+  <p className="w-2/3 italic text-center whitespace-pre-line">
+    {language === "English"
+      ? "Take full control of your crypto journey with our all-in-one DeFi platform. Instantly swap tokens with low fees, stake your assets to earn passive income."
+      : "Ambil kawalan penuh terhadap perjalanan kripto anda dengan platform DeFi sehenti kami.\nTukar token dengan yuran rendah, dan pertaruhkan aset anda untuk mendapat pendapatan pasif."}
+  </p>
+
+  <SwapForm language={language} />
+</div>
+
+
+
+
     </div>
   );
 }

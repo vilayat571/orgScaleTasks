@@ -1,0 +1,41 @@
+export const english = {
+  swap: "Swap",
+  stake: "Stake",
+  earn: "Earn",
+  connectWallet: "Connect Wallet",
+  currency: "Currency",
+  amount: "Amount",
+  select: "Select",
+  enterAmountError: "Please enter an amount greater than zero",
+  chooseCurrencyError: "Please choose different currencies",
+  calculating: "Calculating...",
+  about: "About",
+  exchange: "Exchange",
+  marketplace: "Marketplace",
+  solution: "Solution",
+    socialMedia: "Social Media",
+  footerTitle: "EcoSwap",
+  footerDescription:
+    "Effortlessly exchange items, reduce waste, and make eco-friendly choices.",
+};
+
+export const malay = {
+  swap: "Tukar",
+  stake: "Pertaruhan",
+  earn: "Dapatkan",
+  connectWallet: "Sambungkan Dompet",
+  currency: "Mata Wang",
+  amount: "Jumlah",
+  select: "Pilih",
+  enterAmountError: "Sila masukkan jumlah yang lebih besar daripada sifar",
+  chooseCurrencyError: "Sila pilih mata wang yang berbeza",
+  calculating: "Mengira...",
+  about: "Tentang",
+  exchange: "Pertukaran",
+  marketplace: "Pasaran",
+  solution: "Penyelesaian",
+    socialMedia: "Media Sosial",
+  footerTitle: "EcoSwap",
+  footerDescription:
+    "Tukar item dengan mudah, kurangkan sisa, dan buat pilihan mesra alam.",
+};
