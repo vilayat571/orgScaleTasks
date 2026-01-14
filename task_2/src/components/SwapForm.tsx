@@ -15,7 +15,7 @@ export default function SwapForm({ language }: SwapFormProps) {
     localStorage.getItem("currency") || "USD"
   );
   const [showCurrency, setShowCurrency] = useState(false);
-  const [toCurrency, setToCurrency] = useState<string>("BLUR");
+  const [toCurrency, setToCurrency] = useState<string>("BUSD");
   const [loading, setLoading] = useState(false);
   const [outputCurrency, setOutputCurrency] = useState<number | false>(0);
 
@@ -51,15 +51,15 @@ export default function SwapForm({ language }: SwapFormProps) {
   };
 
   return (
-    <div className="w-full flex items-center justify-center relative top-16">
+    <div className="w-full flex items-center justify-center relative top-8">
       {/* Background overlay */}
       <div className="absolute w-1/3 h-75 p-6 rounded-xl bg-[#28190A] opacity-60"></div>
 
       <div className="relative w-1/3 p-6 rounded-xl bg-transparent z-10">
         {/* FROM INPUT */}
-        <div className="flex items-center justify-between p-4 mb-4 rounded-lg bg-gray-700">
+        <div className="flex items-center justify-between p-4 rounded-lg bg-gray-700">
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 rounded-full bg-orange-500"></div>
+            <img src={data.find((item)=>item.currency==fromCurrency)?.icon} alt="" />
             <select
               value={showCurrency ? fromCurrency : localStorage.getItem("currency") || ""}
               onChange={changeCurrency}
@@ -82,7 +82,7 @@ export default function SwapForm({ language }: SwapFormProps) {
         </div>
 
         {/* SWAP BUTTON */}
-        <div className="flex justify-center mb-4">
+        <div className="flex justify-center">
           <button
             onClick={convertPrice}
             disabled={inputCurrency === 0 || fromCurrency === toCurrency}
@@ -99,6 +99,8 @@ export default function SwapForm({ language }: SwapFormProps) {
         {/* TO INPUT */}
         <div className="flex items-center justify-between p-4 mb-6 rounded-lg bg-gray-700">
           <div className="flex items-center gap-2">
+                        <img src={data.find((item)=>item.currency==toCurrency)?.icon} alt="" />
+
             <select
               value={toCurrency}
               onChange={(e) => setToCurrency(e.target.value)}
