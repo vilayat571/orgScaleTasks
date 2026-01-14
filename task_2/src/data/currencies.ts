@@ -1,5 +1,5 @@
 import BLUR from '../data/assets/BLUR.svg';
-import BNEO from '../data/assets/BNEO.svg';
+import bNEO from '../data/assets/bNEO.svg';
 import BUSD from '../data/assets/BUSD.svg';
 import USD from '../data/assets/USD.svg';
 import ETH from '../data/assets/ETH.svg';
@@ -34,7 +34,7 @@ import ZIL from '../data/assets/ZIL.svg';
 const data:Token[] = [
   {currency:"Currency",  price: 0, icon: '' }, 
   { currency: "BLUR", price: 0.208115254237288, icon: BLUR },
-  { currency: "bNEO", price: 7.1282679, icon: BNEO },
+  { currency: "bNEO", price: 7.1282679, icon: bNEO },
   { currency: "BUSD", price: 0.999183113, icon: BUSD },
   { currency: "BUSD", price: 0.999878261118644, icon: BUSD },
   { currency: "USD", price: 1, icon: USD },
