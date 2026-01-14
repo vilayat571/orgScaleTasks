@@ -1,4 +1,3 @@
-import type { CurrencyInputProps } from "../components/SwapForm";
 import data from "../data/currencies";
 
 // TO INPUT COMPONENT

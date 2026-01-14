@@ -7,7 +7,7 @@ import { english, malay } from "../data/language";
 
 export default function App() {
   const [portal, setPortal] = useState(true);
-  const [currency, setCurrency] = useState("USD");
+  const [currency, setCurrency] = useState("Currency");
   const [language, setLanguage] = useState(
     () => localStorage.getItem("language") || "English"
   );

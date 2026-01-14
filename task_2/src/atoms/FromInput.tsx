@@ -1,4 +1,3 @@
-import type { CurrencyInputProps } from "../components/SwapForm";
 import data from "../data/currencies";
 
 // FROM INPUT COMPONENT
@@ -15,7 +14,7 @@ export function FromInput({
   };
 
   return (
-    <div className="flex flex-col sm:flex-row items-center sm:justify-between p-4 rounded-lg bg-gray-700 mb-4">
+    <div className="flex flex-col sm:flex-row items-center sm:justify-between p-4 rounded-lg bg-gray-700 mb-0">
       <div className="flex items-center gap-2 mb-2 sm:mb-0 w-full sm:w-auto">
         <img
           src={data.find((item) => item.currency == currency)?.icon}
@@ -23,7 +22,7 @@ export function FromInput({
           className="w-6 h-6"
         />
         <select
-          value={showCurrency ? currency : localStorage.getItem("currency") || ""}
+          value={showCurrency ? currency : localStorage.getItem("currency") || "USD"}
           onChange={handleChange}
           className="bg-transparent text-white outline-none cursor-pointer"
         >

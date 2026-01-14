@@ -64,7 +64,7 @@ export default function PortalModal({
           <select
             value={currency}
             onChange={(e) => setCurrency(e.target.value)}
-            className="border border-gray-300 rounded px-3 py-2 outline-none cursor-pointer"
+            className="border border-gray-300 rounded px-3 py-4 outline-none cursor-pointer"
           >
             {data.map((item) => (
               <option key={item.currency} value={item.currency}>
@@ -75,7 +75,7 @@ export default function PortalModal({
           <button
             type="button"
             onClick={handleClose}
-            className="bg-black hover:bg-green-700 rounded-md transition-colors text-white px-4 py-2 mt-2"
+            className="bg-black hover:bg-green-700 rounded-md cursor-pointer transition-colors text-white px-4 py-4 mt-1"
           >
             {texts.select}
           </button>

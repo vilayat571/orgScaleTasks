@@ -1,7 +1,7 @@
 // SWAP BUTTON COMPONENT
 export function SwapButton({ onClick, disabled, loading }: SwapButtonProps) {
   return (
-    <div className="flex justify-center my-4">
+    <div className="flex justify-center my-0">
       <button
         onClick={onClick}
         disabled={disabled}

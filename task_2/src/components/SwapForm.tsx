@@ -47,9 +47,9 @@ export default function SwapForm({ language }: SwapFormProps) {
   };
 
   return (
-    <div className="w-full flex items-center justify-center relative xl:mb-4 lg:mb-0 md:mb-0 sm:mb-0 xl:bottom-2 lg:bottom-0 md:bottom-0 sm:bottom-0  px-4">
+    <div className="w-full flex items-center justify-center relative xl:mb-4 lg:mb-0 md:mb-0 sm:mb-0 xl:-bottom-2 lg:bottom-0 md:bottom-0 sm:bottom-0  px-4">
       <div className="absolute w-full sm:w-2/3 md:w-1/2 lg:w-1/3 xl:h-72 sm:h-80 md:h-96 p-8 rounded-xl xl:bg-[#28190A]
-        lg:bg-[#28190A]  md:bg-[#28190A]  sm:bg-transparent opacity-60"></div>
+        lg:bg-[#28190A]  md:bg-transparent  sm:bg-transparent opacity-60"></div>
 
       <div className="relative w-full max-w-md sm:max-w-lg md:max-w-xl p-6 rounded-xl bg-transparent z-10">
         <FromInput
