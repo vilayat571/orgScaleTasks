@@ -1,56 +1,144 @@
-// src/components/SwapForm.tsx
-import { useState, type JSX } from "react";
-import SwapCard from "./SwapCard";
+import { useState } from "react";
 import data from "../data/currencies";
-//import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import "react-toastify/dist/ReactToastify.css";
 
-export default function SwapForm(): JSX.Element {
-  const [fromToken, setFromToken] = useState<Token>(data[4]); // ETH
-  const [toToken, setToToken] = useState<Token>(data[3]); // USD
+export default function SwapForm() {
+  const [inputCurrency, setInputCurrency] = useState<number>(0);
 
-  const [fromAmount, setFromAmount] = useState<number | "">("");
-  const [toAmount, setToAmount] = useState<number | "">("");
+  //setFromCurrency(localStorage.getItem("currency") )
 
-  const handleSwap = (): void => {
-    if (fromAmount === "" || fromAmount <= 0) return;
+  const [fromCurrency, setFromCurrency] = useState("USD");
+  const [showCurrency, setShowCurrency] = useState(false);
+  const [toCurrency, setToCurrency] = useState<string>("BLUR");
+  const [loading, setLoading] = useState(false);
 
-    const usdValue = fromAmount * fromToken.price;
-    const result = usdValue / toToken.price;
+  const [outputCurrency, setOutputCurrency] = useState<number | false>(0);
 
-    setToAmount(Number(result.toFixed(6)));
+  const convertPrice = () => {
+    // Only runs if validations passed
+    setLoading(true);
+
+    const fromCurrencyPrice = data.find(
+      (bitcoin) => bitcoin.currency === fromCurrency
+    );
+    const toCurrencyPrice = data.find(
+      (bitcoin) => bitcoin.currency === toCurrency
+    );
+
+    const result =
+      fromCurrencyPrice &&
+      toCurrencyPrice &&
+      inputCurrency * (fromCurrencyPrice.price / toCurrencyPrice.price);
+
+    setOutputCurrency(result || 0);
+
+    setTimeout(() => {
+      setLoading(false);
+    }, 1500);
   };
 
-  const switchTokens = (): void => {
-    setFromToken(toToken);
-    setToToken(fromToken);
-
-    setFromAmount(toAmount);
-    setToAmount(fromAmount);
+  const changeCurrency = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setShowCurrency(true);
+    if (showCurrency == true) {
+      localStorage.clear();
+      setFromCurrency(e.target.value);
+    } else {
+      setFromCurrency(e.target.value);
+    }
   };
 
   return (
-    <div className="swap-form w-1/3 relative top-12">
-      <SwapCard
-        amount={fromAmount}
-        setAmount={setFromAmount}
-        token={fromToken}
-        setToken={setFromToken}
-      />
+    <div className="w-full flex items-center justify-center relative top-16">
+      {/* Parent div-in position relative olması lazımdır */}
+      <div className="absolute w-1/3 h-75 p-6 rounded-xl bg-[#28190A] opacity-60 "></div>
 
-      <button className="switch-btn" onClick={switchTokens}>
-     {/*    <FontAwesomeIcon icon={["fad", "exchange"]} /> */}
-      </button>
+      <div className="relative w-1/3 p-6 rounded-xl bg-transparent z-10">
+        {/* FROM INPUT */}
+        <div className="flex items-center justify-between p-4 mb-4 rounded-lg bg-gray-700">
+          <div className="flex items-center gap-2">
+            <div className="w-4 h-4 rounded-full bg-orange-500"></div>
+            <select
+              value={
+                showCurrency
+                  ? fromCurrency
+                  : localStorage.getItem("currency") || ""
+              }
+              onChange={(e) => changeCurrency(e)}
+              className="bg-transparent text-white outline-none cursor-pointer"
+            >
+              {data.map((item) => (
+                <option key={item.currency} value={item.currency}>
+                  {item.currency}
+                </option>
+              ))}
+            </select>
+          </div>
+          <input
+            type="text"
+            value={inputCurrency}
+            onChange={(e) => setInputCurrency(Number(e.target.value))}
+            className="bg-transparent text-white w-16 text-right outline-none"
+          />
+        </div>
 
-      <SwapCard
-        amount={toAmount}
-        setAmount={setToAmount}
-        token={toToken}
-        setToken={setToToken}
-      />
+        {/* SWAP BUTTON */}
+        <div className="flex justify-center mb-4">
+          <button
+            onClick={() => convertPrice()}
+            disabled={
+              inputCurrency == 0 || fromCurrency == toCurrency ? true : false
+            }
+            className={`w-12 h-12 rounded-full cursor-pointer 
+              ${inputCurrency == 0 || fromCurrency == toCurrency ? '' : 'bg-orange-500'}
+              text-2xl font-bold  flex items-center justify-center hover:bg-orange-600 transition`}
+          >
+            <span
+              className={`inline-block transition-transform ${
+                loading ? "animate-spin" : ""
+              }`}
+            >
+              ⮃
+            </span>
+          </button>
+        </div>
 
-      <button className="swap-btn" onClick={handleSwap}>
-        Connect Wallet
-      </button>
+        {/* TO INPUT */}
+        <div className="flex items-center justify-between p-4 mb-6 rounded-lg bg-gray-700">
+          <div className="flex items-center gap-2">
+            <select
+              value={toCurrency}
+              onChange={(e) => setToCurrency(e.target.value)}
+              className="bg-transparent text-white outline-none cursor-pointer"
+            >
+              {data.map((item) => (
+                <div className="bg-red-500">
+                  <img src={item.icon} alt="icon image" />
+                  <option key={item.currency} value={item.currency}>
+                    {item.currency}
+                  </option>
+                </div>
+              ))}
+            </select>
+          </div>
+          <input
+            type="text"
+            readOnly
+            value={
+              loading
+                ? "calculating..."
+                : `~ ${Number(outputCurrency || 0).toFixed(2)}`
+            }
+            className={`bg-transparent text-white 
+              "w-auto" 
+            text-right outline-none`}
+          />
+        </div>
+
+        {/* CONNECT WALLET BUTTON */}
+        <button className="w-full py-3 bg-orange-500 to-yellow-400 rounded-lg text-white font-semibold hover:from-orange-600 hover:to-yellow-500 transition">
+          Connect Wallet
+        </button>
+      </div>
     </div>
   );
 }
