@@ -4,7 +4,7 @@ import BUSD from '../data/assets/BUSD.svg';
 import USD from '../data/assets/USD.svg';
 import ETH from '../data/assets/ETH.svg';
 import GMX from '../data/assets/GMX.svg';
-import STEVMOS from '../data/assets/STEVMOS.svg';
+import stEVMOS from '../data/assets/stEVMOS.svg';
 import LUNA from '../data/assets/LUNA.svg';
 import RATOM from '../data/assets/RATOM.svg';
 import STRD from '../data/assets/STRD.svg';
@@ -40,7 +40,7 @@ const data:Token[] = [
   { currency: "USD", price: 1, icon: USD },
   { currency: "ETH", price: 1645.93373737374, icon: ETH },
   { currency: "GMX", price: 36.3451143728814, icon: GMX },
-  { currency: "STEVMOS", price: 0.0727670677966102, icon: STEVMOS },
+  { currency: "STEVMOS", price: 0.0727670677966102, icon: stEVMOS },
   { currency: "LUNA", price: 0.409556389830508, icon: LUNA },
   { currency: "RATOM", price: 10.2509189152542, icon: RATOM },
   { currency: "STRD", price: 0.738655338983051, icon: STRD },
