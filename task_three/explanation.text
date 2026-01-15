@@ -1,0 +1,6 @@
+The refactored version fixes the filtering so that only valid blockchains with positive balances are shown and removes the undefined variable, 
+improves sorting by calculating each blockchain’s priority only once and sorting with a clear numeric comparison, and avoids wasted work by merging 
+formatting into the same step instead of creating an unused list. It also uses a stable key based on currency and blockchain instead of the array index 
+to prevent rendering issues, separates responsibilities so sorting only depends on balances while USD values are calculated during rendering, improves type 
+safety by removing any and clearly defining FormattedWalletBalance, and makes the whole process easier to read and maintain by handling filtering, formatting, 
+and sorting in a single, well-commented pass.
