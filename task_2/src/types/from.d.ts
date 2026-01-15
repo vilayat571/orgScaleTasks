@@ -14,7 +14,6 @@ type Texts = {
   setInputValue: (value: number) => void;
   showCurrency?: boolean;
   texts?: any;
-  type: "from" | "to";
   loading?: boolean;
 }
 
